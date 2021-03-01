@@ -67,12 +67,55 @@ is written called `Decompress_Blocks.txt`, which includes the
 compressed block sizes because otherwise it wouldn't be able to
 decompress correctly.
 
-### `multi_thread_compress.cpp`
+### Multithread Compression: `multi_thread_compress.cpp`
 
+This will need a little more explaination than the single
+thread compression code because it is more complicated, but
+first, executing the compiled code has the following form:
 
+```
+./run.out input1 input2 input3 input4
+```
 
-### `compress.cpp`
+where `input1` is either `-c` or `-d` for compress or decompress, `input2`
+is for the number of worker threads to use, `input3` is the input file,
+and `input4` is the output file. An example is below:
 
+```
+./multi.out -c 4 Small_Input_File.txt Small_Multi_Compression.txt
+```
+
+Now to explain the program, there is a function that reads in a file and stores the
+data in a vector in 4KB blocks, a function that runs the compression portion
+of the code, and finally, a function that writes the output. Only the compression
+function will need to be described because the other two are very simple. 
+The compression function loops over all of the blocks in the vector to compress
+them, but there is an inner loop used for creating the configurable number of
+threads. The data is passed into the standard compression function through
+the thread creation and execution, and then the thread is "joined" back
+to the main thread in order of execution where the returned data is
+pushed onto an output vector of blocks. 
+
+### Single Thread Compression: `compress.cpp`
+
+This code is straight forward and has comments throughout to help with
+descriptions. The main thing to note is when running the compiled file
+it follows the form:
+
+```
+./run.out input1 input2 input3
+```
+
+where `input1` is either `-c` or `-d` for compress or decompress, `input2` is the input file,
+and `input3` is the output file. An example is below:
+
+```
+./compress.out -c Small_Input_File.txt Small_Compress.txt
+```
+
+The program, in general, retrieves input blocks of size 4KB, 
+then compresses it, and then writes it to the output. The compression
+code is very simple and is from the `zlib` library. 
 
 
 ## Analysis

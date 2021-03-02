@@ -122,11 +122,10 @@ code is very simple and is from the `zlib` library.
 
 ### Description
 
-There are three important comparison methods used
+There are two important comparison methods used
 to exaluate the multithreading used for compression:
-how fast is took to compress, how the number of threads effects the
-speed, and finally, the size of the compression. 
-Note, when worker threads are described below
+how fast is took to compress and the number of threads effects the
+speed. Note, when worker threads are described below
 that is reffering to the number of threads that are
 used to compress the input file on excluding the main thread,
 so when it says 0 worker threads that means only the main 
@@ -137,9 +136,9 @@ thread was used (i.e. `compress.cpp`).
 | Worker Threads | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Size | | | | | |
-| 779KB |
-| 20MB |
-| 1GB |
+| 779KB | 0.079 | 0.181 | 0.07 | 0.054 | 0.061 | 0.063 | 0.069 |
+| 20MB | 1.578 | 4.814 | 2.000 | | 1.311 | 1.44 | |
+| 1GB | 80.85 | 138.22 | 69.033 | 42.018 | 26.266 | 29.8 | 30.72 |
 
 ## Conclusion
 

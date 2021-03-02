@@ -60,12 +60,13 @@ the `zlib` library and the `-pthread` is needed for the
 pthread library. Those lines may be different for different
 compilers.
 
-Finally, for both of the files below decompression is possible, 
+Finally, for both of the files below decompression is somewhat possible, 
 but it requires the size of the individual compressed blocks
 so it can decompress properly. To do that a second output file
 is written called `Decompress_Blocks.txt`, which includes the
 compressed block sizes because otherwise it wouldn't be able to
-decompress correctly.
+decompress correctly. Currently, both of the c++ files can 
+decompress, but it doesn't come out completely correct.
 
 ### Multithread Compression: `multi_thread_compress.cpp`
 

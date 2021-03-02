@@ -136,10 +136,20 @@ thread was used (i.e. `compress.cpp`).
 | Worker Threads | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Size | | | | | |
-| 779KB | 0.079 | 0.181 | 0.07 | 0.054 | 0.061 | 0.063 | 0.069 |
-| 20MB | 1.578 | 4.814 | 2.000 | | 1.311 | 1.44 | |
-| 1GB | 80.85 | 138.22 | 69.033 | 42.018 | 26.266 | 29.8 | 30.72 |
+| 779KB | 0.079 | 0.16 | 0.086 | 0.073 | 0.063 | 0.065 | 0.068 |
+| 20MB | 1.578 | 4.814 | 2.82 | 2.56 | 2.56 | 2.17 | 2.47 |
+| 1GB | 80.85 | 125.77 | 70.74 | 40.96 | 29.03 | 32.51 | 36.17 |
+
+Looking at the table above, there is a pattern in the number of worker threads
+and the time it takes to compress, and that is caused by a couple different things.
+One of them is the fact that threads get executed at the operating systems discretion,
+so it is hard to have them run immediatly. The other reason is because the more threads
+that are used then the more lines of code that will be executed. The number of threads
+helps to a point and then it starts to slow the compression down a little at a time.
 
 ## Conclusion
 
+In Conclusion, the multithreading helped significantly for larger files (i.e. in the GBs),
+but for smaller files it either had no effect or it actually slowed it down. That decrease in runtime
+speed is from the number of lines that need to be executed compared to the size of the file that is being compressed.
 
